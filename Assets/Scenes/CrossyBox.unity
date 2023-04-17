@@ -365,6 +365,18 @@ MonoBehaviour:
   OnJumpEnd:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1721633672}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: UpdatePosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1694613961}
         m_TargetAssemblyTypeName: PlayManager, Assembly-CSharp
         m_MethodName: UpdateTravelDistance
@@ -427,8 +439,8 @@ MonoBehaviour:
   - {fileID: 5078824747378226032, guid: d22a4991fbce7ce4490297955c5a8698, type: 3}
   initialGrassCount: 5
   horizontalSize: 9
-  backViewDistance: -4
-  forwardViewDistance: 100
+  backViewDistance: -5
+  forwardViewDistance: 15
   treeProbability: 0.5
   travelDistance: 0
 --- !u!1 &1721633668
@@ -442,6 +454,7 @@ GameObject:
   - component: {fileID: 1721633671}
   - component: {fileID: 1721633670}
   - component: {fileID: 1721633669}
+  - component: {fileID: 1721633672}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -507,11 +520,25 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721633668}
-  m_LocalRotation: {x: 0.32937354, y: -0.15559164, z: 0.055176552, w: 0.92965573}
-  m_LocalPosition: {x: 6, y: 17.4, z: -15.5}
+  m_LocalRotation: {x: 0.2801202, y: -0.15825084, z: 0.04687603, w: 0.94567007}
+  m_LocalPosition: {x: 1, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 39.019, y: -19, z: 0.007}
+  m_LocalEulerAnglesHint: {x: 33, y: -19, z: 0}
+--- !u!114 &1721633672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721633668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b179535df97ddb4eadcf22c2dd254d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  moveDuration: 0.2

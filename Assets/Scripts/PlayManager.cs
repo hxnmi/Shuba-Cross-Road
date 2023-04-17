@@ -25,7 +25,7 @@ public class PlayManager : MonoBehaviour
 			terrain.transform.position = new Vector3(0, 0, zPos);
 			
 			if(terrain is Grass grass)
-				grass.SetTreePercentage(zPos < -1 ? 0.3f : 0);
+				grass.SetTreePercentage(zPos < -1 ? 1 : 0);
 				
 			terrain.Generate(horizontalSize);
 			
@@ -34,15 +34,8 @@ public class PlayManager : MonoBehaviour
 
 		for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
 		{
-			var terrain = SpawnRandomTerrain(zPos);
-
-			terrain.Generate(horizontalSize);
-			
-			activeTerrainDict[zPos] = terrain;
+			SpawnRandomTerrain(zPos);
 		}
-		
-		SpawnRandomTerrain(0);
-		
 	}
 	
 	private Terrain SpawnRandomTerrain(int zPos)
@@ -62,9 +55,7 @@ public class PlayManager : MonoBehaviour
 			else if(terrainCheck.GetType() != activeTerrainDict[checkPos].GetType())
 			{
 				randomIndex = Random.Range(0,terrainList.Count);
-				terrain = Instantiate(terrainList[randomIndex]);
-				terrain.transform.localPosition = new Vector3(0, 0, zPos);
-				return terrain;
+				return SpawnTerrain(terrainList[randomIndex], zPos);
 			}
 			else
 			{
@@ -83,8 +74,15 @@ public class PlayManager : MonoBehaviour
 		}
 		
 		randomIndex = Random.Range(0,candidateTerrain.Count);
-		terrain = Instantiate(candidateTerrain[randomIndex]);
+		return SpawnTerrain(candidateTerrain[randomIndex], zPos);
+	}
+	
+	public Terrain SpawnTerrain(Terrain terrain, int zPos)
+	{
+		terrain = Instantiate(terrain);
 		terrain.transform.localPosition = new Vector3(0, 0, zPos);
+		terrain.Generate(horizontalSize);
+		activeTerrainDict[zPos] = terrain;
 		return terrain;
 	}
 	
@@ -93,6 +91,17 @@ public class PlayManager : MonoBehaviour
 		if(targetPosition.z > travelDistance)
 		{
 			travelDistance = Mathf.CeilToInt(targetPosition.z);
+			UpdateTerrain();
 		}
+	}
+	
+	public void UpdateTerrain()
+	{
+		var destroyPos = travelDistance -1 + backViewDistance;
+		Destroy(activeTerrainDict[destroyPos].gameObject);
+		activeTerrainDict.Remove(destroyPos);
+		
+		var spawnPosition = travelDistance - 1 + forwardViewDistance;
+		SpawnRandomTerrain(spawnPosition);
 	}
 }
