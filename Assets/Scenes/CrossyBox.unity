@@ -362,6 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDuration: 0.1
   jumpHeight: 0.5
+  leftMoveLimit: 0
+  rightMoveLimit: 0
+  backMoveLimit: 0
   OnJumpEnd:
     m_PersistentCalls:
       m_Calls:
@@ -443,6 +446,21 @@ MonoBehaviour:
   forwardViewDistance: 15
   treeProbability: 0.5
   travelDistance: 0
+  OnUpdateTerrainLimit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1372482363}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: UpdateMoveLimit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1721633668
 GameObject:
   m_ObjectHideFlags: 0

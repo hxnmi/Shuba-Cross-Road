@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayManager : MonoBehaviour
 	
 	Dictionary<int,Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
 	[SerializeField] int travelDistance;
+	
+	public UnityEvent<int, int> OnUpdateTerrainLimit;
 	
 	private void Start()
 	{
@@ -35,24 +38,25 @@ public class PlayManager : MonoBehaviour
 		for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
 		{
 			SpawnRandomTerrain(zPos);
-		}
+		}OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
 	}
 	
 	private Terrain SpawnRandomTerrain(int zPos)
-	{
-		Terrain terrainCheck = null;
+	{	
+		Terrain comparatorTerrain = null;
 		int randomIndex;
-		Terrain terrain = null;
 		
 		for (int z = - 1; z >= - 3; z--)
 		{
 			var checkPos = zPos + z;
-			if(terrainCheck == null)
+			// System.Type comparatorType = comparatorTerrain?.GetType() ?? null;
+			// System.Type checkType = activeTerrainDict[checkPos].GetType();
+			if(comparatorTerrain == null)
 			{
-				terrainCheck = activeTerrainDict[checkPos];
+				comparatorTerrain = activeTerrainDict[checkPos];
 				continue;
 			}
-			else if(terrainCheck.GetType() != activeTerrainDict[checkPos].GetType())
+			else if(comparatorTerrain.GetType() != activeTerrainDict[checkPos].GetType())
 			{
 				randomIndex = Random.Range(0,terrainList.Count);
 				return SpawnTerrain(terrainList[randomIndex], zPos);
@@ -64,9 +68,10 @@ public class PlayManager : MonoBehaviour
 		}
 		
 		var candidateTerrain = new List<Terrain>(terrainList);
+		
 		for(int i = 0; i < candidateTerrain.Count; i++)
 		{
-			if(terrainCheck.GetType() == candidateTerrain[i].GetType())
+			if(comparatorTerrain.GetType() == candidateTerrain[i].GetType())
 			{
 				candidateTerrain.Remove(candidateTerrain[i]);
 				break;
@@ -103,5 +108,7 @@ public class PlayManager : MonoBehaviour
 		
 		var spawnPosition = travelDistance - 1 + forwardViewDistance;
 		SpawnRandomTerrain(spawnPosition);
+		
+		OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
 	}
 }
