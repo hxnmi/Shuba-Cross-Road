@@ -325,6 +325,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1372482362}
   - component: {fileID: 1372482363}
+  - component: {fileID: 1372482364}
+  - component: {fileID: 1372482365}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -361,10 +363,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.1
-  jumpHeight: 0.5
-  leftMoveLimit: 0
-  rightMoveLimit: 0
-  backMoveLimit: 0
+  jumpHeight: 0.3
+  leftMoveLimit: -4
+  rightMoveLimit: 4
+  backMoveLimit: 21
   OnJumpEnd:
     m_PersistentCalls:
       m_Calls:
@@ -392,6 +394,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &1372482364
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372482361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.74, z: 0.73}
+  m_Center: {x: 0.005, y: 0.43, z: -0.04}
+--- !u!54 &1372482365
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372482361}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1694613959
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad110769ff28fe64d9c555bcf63b0902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1372482363}
   terrainList:
   - {fileID: 7282013522215821440, guid: bfdafd06143fe6e4d9476220271de431, type: 3}
   - {fileID: 5078824747378226032, guid: d22a4991fbce7ce4490297955c5a8698, type: 3}
@@ -444,7 +474,6 @@ MonoBehaviour:
   horizontalSize: 9
   backViewDistance: -5
   forwardViewDistance: 15
-  treeProbability: 0.5
   travelDistance: 0
   OnUpdateTerrainLimit:
     m_PersistentCalls:

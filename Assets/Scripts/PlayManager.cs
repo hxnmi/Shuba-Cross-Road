@@ -5,13 +5,11 @@ using UnityEngine.Events;
 
 public class PlayManager : MonoBehaviour
 {
-	[SerializeField] Player player;
 	[SerializeField] List<Terrain> terrainList;
 	[SerializeField] int initialGrassCount = 5;
 	[SerializeField] int horizontalSize;
 	[SerializeField] int backViewDistance = -4;
 	[SerializeField] int forwardViewDistance = 15;
-	[SerializeField, Range(0, 1)] float treeProbability;
 	
 	Dictionary<int,Terrain> activeTerrainDict = new Dictionary<int, Terrain>(20);
 	[SerializeField] int travelDistance;
@@ -49,8 +47,7 @@ public class PlayManager : MonoBehaviour
 		for (int z = - 1; z >= - 3; z--)
 		{
 			var checkPos = zPos + z;
-			// System.Type comparatorType = comparatorTerrain?.GetType() ?? null;
-			// System.Type checkType = activeTerrainDict[checkPos].GetType();
+			
 			if(comparatorTerrain == null)
 			{
 				comparatorTerrain = activeTerrainDict[checkPos];

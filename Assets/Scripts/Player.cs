@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
 	
 	void Update()
 	{
+		// if(isDie)
+		// 	return;
+			
 		if (DOTween.IsTweening(transform))
 			return;
 
@@ -48,7 +51,10 @@ public class Player : MonoBehaviour
 	{
 		var targetPosition = transform.position + direction;
 		
-		if(targetPosition.x < leftMoveLimit || targetPosition.x > rightMoveLimit || targetPosition.z < backMoveLimit)
+		if(targetPosition.x < leftMoveLimit ||
+		 targetPosition.x > rightMoveLimit ||
+		  targetPosition.z < backMoveLimit ||
+		  Tree.PositionSet.Contains(targetPosition))
 		{
 			targetPosition = transform.position;
 		}
@@ -75,4 +81,12 @@ public class Player : MonoBehaviour
 		OnJumpEnd.Invoke(transform.position);
 	}
 	
+	private void OnTriggerEnter(Collider other) 
+	{
+		// if(isDie == true)
+		// 	return;
+		// transform.DOScaleY(0.1f,0.2f);
+		
+		// isDie = true;
+	}
 }

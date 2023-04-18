@@ -48,4 +48,4 @@ MonoBehaviour:
   treePrefabList:
   - {fileID: 4558139578407562775, guid: fbeb338834bacb440980cff10adbee57, type: 3}
   - {fileID: 4609196625602135727, guid: d0d43aeb1e1488b40a2edb0e3a48aca8, type: 3}
-  treeProbability: 0.5
+  treeProbability: 0.3
