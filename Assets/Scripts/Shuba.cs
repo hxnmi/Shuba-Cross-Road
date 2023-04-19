@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+public class Shuba : MonoBehaviour
 {
 	[SerializeField,Range(0,1)] float moveDuration = 0.1f;
 	[SerializeField,Range(0, 1)] float jumpHeight = 0.5f;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 	
 	void Update()
 	{
-		if(isMoveable)
+		if(isMoveable == false)
 			return;
 			
 		if (DOTween.IsTweening(transform))
@@ -73,6 +73,11 @@ public class Player : MonoBehaviour
 		transform.forward = direction;
 	}
 	
+	public void SetMoveable(bool value)
+	{
+		isMoveable=value;
+	}
+	
 	public void UpdateMoveLimit(int horizontalSize, int backLimit)
 	{
 		leftMoveLimit = -horizontalSize/2;
@@ -89,11 +94,11 @@ public class Player : MonoBehaviour
 	{
 		if(other.CompareTag("Car"))
 		{
-			if(isMoveable == true)
+			if(transform.localScale.y == 0.2f)
 				return;
-			transform.DOScaleY(0.25f,0.2f);
+			transform.DOScaleY(0.2f,0.2f);
 			
-			isMoveable = true;
+			isMoveable = false;
 			Invoke("Die",3);
 		}
 		else if(other.CompareTag("Coin"))
@@ -108,6 +113,8 @@ public class Player : MonoBehaviour
 			{
 				this.transform.SetParent(other.transform);
 				Invoke("Die",3);
+				this.transform.position = this.transform.parent.position + new Vector3(0,1,-0.5f);
+				this.transform.rotation = Quaternion.Euler(0, 180, 0);
 			}
 		}
 	}

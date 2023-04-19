@@ -18,7 +18,6 @@ public class PlayManager : MonoBehaviour
 	[SerializeField] int coin;
 	
 	public UnityEvent<int, int> OnUpdateTerrainLimit;
-	
 	public UnityEvent<int> OnScoreUpdate;
 	
 	private void Start()
@@ -41,7 +40,9 @@ public class PlayManager : MonoBehaviour
 		for (int zPos = initialGrassCount; zPos < forwardViewDistance; zPos++)
 		{
 			SpawnRandomTerrain(zPos);
-		}OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
+		}
+		
+		OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
 	}
 	
 	private Terrain SpawnRandomTerrain(int zPos)
