@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 19574073238149823}
   - component: {fileID: -7688172122816951472}
+  - component: {fileID: 4893229213083034467}
   m_Layer: 0
   m_Name: Car 2
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145097b506a568e4e87cbb481e9f84bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
+--- !u!65 &4893229213083034467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19574073238149822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7717293, y: 0.6561491, z: 1.5046523}
+  m_Center: {x: -0.14303038, y: 0.33662716, z: 0.33576047}
 --- !u!1 &19574074522802252
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +71,6 @@ GameObject:
   - component: {fileID: 19574074522802253}
   - component: {fileID: 19574074522802291}
   - component: {fileID: 19574074522802290}
-  - component: {fileID: 2688454262246732921}
   m_Layer: 0
   m_Name: Car_04
   m_TagString: Untagged
@@ -130,16 +143,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2688454262246732921
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19574074522802252}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}

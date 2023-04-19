@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Road : Terrain
 {
-	[SerializeField] Car carPrefab;
+	[SerializeField] List<GameObject> carPrefabList = new List<GameObject>();
 	[SerializeField] float minCarSpawnInterval;
 	[SerializeField] float maxCarSpawnInterval;
 	
@@ -36,9 +36,12 @@ public class Road : Terrain
 				minCarSpawnInterval,
 				maxCarSpawnInterval);
 			
-			var car = Instantiate(carPrefab,carSpawnPosition,carRotation);
+			var randomIndex = Random.Range(0, carPrefabList.Count);
+			var prefab = carPrefabList[randomIndex];
 			
-			car.SetUpDistanceLimit(horizontalSize + 6);
+			var car = Instantiate(prefab,carSpawnPosition,carRotation);
+			
+			car.GetComponent<Car>().SetUpDistanceLimit(horizontalSize + 6);
 			return;
 		}
 		
