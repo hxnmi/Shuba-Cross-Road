@@ -6,6 +6,10 @@ using UnityEngine.Events;
 
 public class Shuba : MonoBehaviour
 {
+	private Vector3 startTouchPosition;
+	private Vector3 endTouchPosition;
+	private float dragDistance;
+	
 	[SerializeField,Range(0,1)] float moveDuration = 0.1f;
 	[SerializeField,Range(0, 1)] float jumpHeight = 0.5f;
 	[SerializeField] int leftMoveLimit;
@@ -16,19 +20,72 @@ public class Shuba : MonoBehaviour
 	public UnityEvent<int> OnGetCoin;
 	public UnityEvent OnDie;
 	public UnityEvent OnCarCollision;
+	public UnityEvent OnLive;
 	
 	private bool isMoveable = false;
 	
-	void Update()
+	void Start()
 	{
+		dragDistance = Screen.height * 15 /100;
+		
+		InvokeRepeating("ShubaSay",0.5f,8f);
+	}
+	
+	void Update()
+	{	
 		if(isMoveable == false)
 			return;
-			
+
 		if (DOTween.IsTweening(transform))
 			return;
-
+			
 		Vector3 direction = Vector3.zero;
-
+		
+		//input mobile
+		if(Input.touchCount>0)
+		{
+			Touch touch = Input.GetTouch(0);
+			if(touch.phase == TouchPhase.Began)
+			{
+				startTouchPosition = touch.position;
+				endTouchPosition = touch.position;
+			}
+			else if(touch.phase == TouchPhase.Moved)
+			{
+				endTouchPosition = touch.position;
+			}	
+			else if(touch.phase == TouchPhase.Ended)
+			{
+				endTouchPosition = touch.position;
+				if(Mathf.Abs(startTouchPosition.x-endTouchPosition.x)>dragDistance || Mathf.Abs(startTouchPosition.y-endTouchPosition.y)>dragDistance)
+				{
+					if(Mathf.Abs(startTouchPosition.x-endTouchPosition.x)>Mathf.Abs(startTouchPosition.y-endTouchPosition.y))
+					{
+						if (endTouchPosition.x > startTouchPosition.x)
+						{
+							direction += Vector3.right;
+						}
+						else if (endTouchPosition.x < startTouchPosition.x)
+						{
+							direction += Vector3.left;
+						}
+					}
+					else
+					{
+						if (endTouchPosition.y > startTouchPosition.y)
+						{
+							direction += Vector3.forward;
+						}
+						else if (endTouchPosition.y < startTouchPosition.y)
+						{
+							direction += Vector3.back;
+						}
+					}
+				}
+			}
+		}
+		
+		//input standalone
 		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			direction += Vector3.forward;
@@ -109,7 +166,7 @@ public class Shuba : MonoBehaviour
 			OnGetCoin.Invoke(coin.Value);
 			coin.Collected();
 		}
-		else if(other.CompareTag("Enemy"))
+		else if(other.CompareTag("Kobo"))
 		{
 			if(this.transform != other.transform)
 			{
@@ -126,4 +183,8 @@ public class Shuba : MonoBehaviour
 		OnDie.Invoke();
 	}
 	
+	void ShubaSay()
+	{
+		OnLive.Invoke();
+	}
 }
