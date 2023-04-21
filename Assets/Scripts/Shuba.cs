@@ -15,6 +15,7 @@ public class Shuba : MonoBehaviour
 	public UnityEvent<Vector3> OnJumpEnd;
 	public UnityEvent<int> OnGetCoin;
 	public UnityEvent OnDie;
+	public UnityEvent OnCarCollision;
 	
 	private bool isMoveable = false;
 	
@@ -99,6 +100,7 @@ public class Shuba : MonoBehaviour
 			transform.DOScaleY(0.2f,0.2f);
 			
 			isMoveable = false;
+			OnCarCollision.Invoke();
 			Invoke("Die",3);
 		}
 		else if(other.CompareTag("Coin"))
